@@ -1,0 +1,9 @@
+#include<iostream>
+int main(void){
+  std::cout.precision(7);
+  std::cout.setf(std::ios::scientific);
+  float a= 0.1+0.1+0.1+0.1+0.1+0.1+0.1+0.1+0.1+0.1;
+  std::cout << a  <<"\n";
+
+  return 0;
+}
