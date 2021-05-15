@@ -19,12 +19,11 @@ int main (void){
   auto end = std::chrono::steady_clock::now();
   double t0=elapsed(start, end); 
   
-  
-  for (int th=1;th<16;++th){
+  for (int th=1;th<20;++th){
     start = std::chrono::steady_clock::now();
     double intp= integralpar(10.,N,th);
     end = std::chrono::steady_clock::now();
-    speed_up(start, end,t0,th);
+    //speed_up(start, end,t0,th);
     parallel_efficiency(start, end,t0,th);
   }
 
@@ -67,12 +66,12 @@ double integralpar(double xf, int N,int th) {
 //metricas
 void speed_up(auto start, auto end ,double t0 ,int th){
   double speed =  t0/(std::chrono::duration_cast<std::chrono::milliseconds>(end-start).count());
-  std::cout <<"speed up con "<< th <<" threads  "<< speed << "\n";
+  std::cout << th <<" "<< speed << "\n";
 }
 
 void parallel_efficiency(auto start, auto end ,double t0 ,int th){
   double pe =  t0/(th*std::chrono::duration_cast<std::chrono::milliseconds>(end-start).count());
-  std::cout <<"parallel efficiency con "<< th <<" threads  "<< pe << "\n";  
+  std::cout << th <<" "<< pe << "\n";  
 }
 
 
