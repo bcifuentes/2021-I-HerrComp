@@ -19,7 +19,7 @@ int main (void){
   auto end = std::chrono::steady_clock::now();
   double t0=elapsed(start, end); 
   
-  for (int th=1;th<20;++th){
+  for (int th=1;th<14;++th){
     start = std::chrono::steady_clock::now();
     double intp= integralpar(10.,N,th);
     end = std::chrono::steady_clock::now();
