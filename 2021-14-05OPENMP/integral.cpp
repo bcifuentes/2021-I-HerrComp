@@ -12,19 +12,24 @@ double elapsed(auto start, auto end );
 void speed_up(auto start, auto end, double t0,int th);
 void parallel_efficiency(auto start, auto end ,double t0 ,int th);
 
-int main (void){
+int main (int argc,char ** argv){
+  int metrica = std::atoi(argv[1]);
   int N=1500000;
+  //mide el tiempo con un solo thread
   auto start = std::chrono::steady_clock::now();
   double intp= integralpar(10.,N,1);
   auto end = std::chrono::steady_clock::now();
+
   double t0=elapsed(start, end); 
   
   for (int th=1;th<14;++th){
     start = std::chrono::steady_clock::now();
     double intp= integralpar(10.,N,th);
     end = std::chrono::steady_clock::now();
-    //speed_up(start, end,t0,th);
-    parallel_efficiency(start, end,t0,th);
+    if (metrica==0){
+      speed_up(start, end,t0,th);}
+    else if (metrica==1){
+      parallel_efficiency(start, end,t0,th);}
   }
 
   return 0;
@@ -36,6 +41,7 @@ double f(double x){
   double y=std::sin(x*std::sin(x))*x*x+5*x*std::cos(x*x);
   return y;
 }
+
 double integral(double xf, int N){
   double estimado=0.;
   double dx=xf/N;
@@ -44,6 +50,7 @@ double integral(double xf, int N){
   }
   return estimado;
 }
+
 double integralpar(double xf, int N,int th) {
   double estimado=0.;
   double dx=xf/N;
