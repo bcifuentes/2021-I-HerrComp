@@ -3,7 +3,7 @@
 
 int main(int argc, char **argv)
 {
-  MPI_Init(&argc, &argv); /* Mandatory */
+  MPI_Init(&argc, &argv); 
   int pid;
   int np;
 
@@ -15,6 +15,6 @@ int main(int argc, char **argv)
     MPI_Barrier(MPI_COMM_WORLD);
   }
   
-  MPI_Finalize(); /* Mandatory */
+  MPI_Finalize(); 
   return 0;
 }
