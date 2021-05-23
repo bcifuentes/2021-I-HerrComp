@@ -4,7 +4,7 @@
 #include <cmath>
 
 void FillMat(double *X,int N,int SEED);
-void TransMAT(double *X,double *XT,int Nb,int N);
+void TransMAT(double *X,double *XT,int N);
 
 int main(int argc, char const **argv){
   int N= std::atoi(argv[1]);
@@ -12,22 +12,19 @@ int main(int argc, char const **argv){
   
   double *A =new double[N*N]{0.};
   FillMat(A,N,1);
-  double *B =new double[N*N]{0.};
-  FillMat(B,N,1);
   double *Z =new double[N*N]{0.};
 
-  TransMAT(A,Z,2,N);
+  TransMAT(A,Z,N);
 
-//  for (size_t ii = 0; ii < N; ii++){
-//  for (size_t jj = 0; jj < N; jj++){
-//    std::cout<<Z[N*ii+jj]<<" ";
-//  }
-//  std::cout<<"\n";
-//}
+  // for (size_t ii = 0; ii < N; ii++){
+  // for (size_t jj = 0; jj < N; jj++){
+  //  std::cout<<Z[N*ii+jj]<<" ";
+  //}
+  //std::cout<<"\n";
+  //}
  
   std::cout<<Z[0]<<std::endl;
   delete[] A;
-  delete[] B;
   delete[] Z;
 
   return 0;
@@ -45,19 +42,21 @@ void FillMat(double *X,int N,int SEED){
 }
 
 //transpuesta
-void TransMAT(double *X,double *XT,int Nb,int N){
+void TransMATB(double *X,double *XT,int Nb,int N){
 #pragma omp parallel
   {
     if (Nb<=N){
       int NSIZE = N/Nb;
       int nth = omp_get_num_threads();
       int thid = omp_get_thread_num();
-      int Nthread = N/nth;
+
+      int Nthreat = Nb/nth;
       
       double *temp =new double[Nb*Nb]{0.};
+      
       for (int kk=0; kk<NSIZE;++kk){
 	for (int ll=0; ll<NSIZE;++ll){
-	  for (int ii=0; ii<Nb;++ii){
+	  for (int ii=Nthreat*thid; ii<Nthreat*(thid+1);++ii){
 	    for (int jj=0;jj<Nb;++jj){
 	      temp[ii*Nb+jj]=X[(jj+Nb*kk)*N+(ii+Nb*ll)];
 	    }
@@ -72,4 +71,15 @@ void TransMAT(double *X,double *XT,int Nb,int N){
       delete[] temp; 
     }
   }
+}
+
+void TransMAT(double *X,double *XT,int N){
+  #pragma omp parallel
+  
+    for(int ii=0;ii<N;++ii){
+      for(int jj=0; jj<N;++jj){
+	XT[ii*N+jj]=X[jj*N+ii];
+      }
+    }
+  
 }
