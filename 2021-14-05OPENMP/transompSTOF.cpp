@@ -16,11 +16,11 @@ int main(int argc, char const **argv){
   FillMat(A,N,1);
   double *Z =new double[N*N]{0.};
 
-  for(int th=1;th<10;++th){
+  for(int th=1;th<20;++th){
     auto start = std::chrono::steady_clock::now();
     TransMAT(A,Z,64,N,th);
     auto end = std::chrono::steady_clock::now();
-    std::cout<<"with "<<th<<" threads\n";
+    std::cout<<th<<" ";
     print_elapsed(start, end);
   }
 //  for (size_t ii = 0; ii < N; ii++){
@@ -66,7 +66,6 @@ void TransMAT(double *X,double *XT,int Nb,int N,int th){
 
 void print_elapsed(auto start, auto end )
 {
-  std::cout << "Elapsed time in micro-s: "
-        << std::chrono::duration_cast<std::chrono::microseconds>(end-start).count()
+  std::cout << std::chrono::duration_cast<std::chrono::microseconds>(end-start).count()
         << "\n";
 }
