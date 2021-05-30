@@ -30,6 +30,7 @@ void pintar(int N,int pid,int np){
     //std::cout << "Tiempo con "<<np<<" procesos: " << t1-t0 << "\n";
     std::cout<<np<<" "<<t1-t0<<"\n";
   }
+  //std::cout << "Tiempo del pid "<<pid<<" con "<<np<<" procesos: " << t1-t0 << "\n";
 
 }
 double PI(int N,int pid,int np){
