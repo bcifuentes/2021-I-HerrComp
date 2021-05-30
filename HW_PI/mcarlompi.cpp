@@ -34,7 +34,7 @@ void pintar(int N,int pid,int np){
 double PI(int N,int pid,int np){
   
   int count = 0;
-  int seed = pid; 
+  int seed = pid; //al colocar seed como pid, el valor de pi obtenido dependerá de cuantos procesos ejecuten el programa
 
   int Nlocal= N/np;
   int iimin= pid*Nlocal;
