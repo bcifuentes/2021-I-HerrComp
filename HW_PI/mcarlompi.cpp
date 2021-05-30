@@ -26,8 +26,9 @@ void pintar(int N,int pid,int np){
   double t1 = MPI_Wtime();
 
   if(pid==0){
-    std::cout << "pi= "<< pi<<"\n";
-    std::cout << "Tiempo con "<<np<<" procesos: " << t1-t0 << "\n";
+    //std::cout << "pi= "<< pi<<"\n";
+    //std::cout << "Tiempo con "<<np<<" procesos: " << t1-t0 << "\n";
+    std::cout<<np<<" "<<t1-t0<<"\n";
   }
 
 }
